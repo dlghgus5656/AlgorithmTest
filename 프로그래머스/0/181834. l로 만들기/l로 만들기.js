@@ -1,7 +1,8 @@
 function solution(myString) {
-    const result = [];
+    const result = new Array(myString.length);
     for (let i = 0; i < myString.length; i++) {
-        result.push(myString[i] < 'l' ? 'l' : myString[i]);
+        // result.push(myString[i] < 'l' ? 'l' : myString[i]);
+        result[i] = myString[i] < 'l' ? 'l' : myString[i]
     }
     return result.join('');
 }

@@ -1,5 +1,8 @@
 function changeSeconds (item) {
-  return (Number(item.slice(0,2)) * 60)  + Number(item.slice(3,5))
+  // return (Number(item.slice(0,2)) * 60)  + Number(item.slice(3,5))
+
+  const [mm, ss] = item.split(":").map(Number);
+  return mm * 60 + ss;
 }
 
 function solution(video_len, pos, op_start, op_end, commands) {
@@ -9,7 +12,7 @@ function solution(video_len, pos, op_start, op_end, commands) {
 
     let posSeconds = changeSeconds(pos) // 현재 위치
 
-    if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) posSeconds = op_endSeconds
+    if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) posSeconds = op_endSeconds // 오프닝 건너뛰기
     
     for (const com of commands) {
         switch (com) {
@@ -50,7 +53,7 @@ function solution(video_len, pos, op_start, op_end, commands) {
 //           if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) {
 //                     posSeconds = op_endSeconds
 //                 } 
-        if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) {
+        if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) { // 오프닝 건너뛰기
                     posSeconds = op_endSeconds
                 } 
     }

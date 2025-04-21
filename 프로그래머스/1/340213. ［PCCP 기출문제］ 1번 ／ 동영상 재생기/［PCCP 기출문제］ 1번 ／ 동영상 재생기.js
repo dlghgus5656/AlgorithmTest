@@ -1,9 +1,13 @@
-function solution(video_len, pos, op_start, op_end, commands) {
-    const video_lenSeconds = (Number(video_len.slice(0,2)) * 60)  + Number(video_len.slice(3,5)) // 영상 시간
-    const op_startSeconds = (Number(op_start.slice(0,2)) * 60)  + Number(op_start.slice(3,5)) // 오프닝 시작
-    const op_endSeconds = (Number(op_end.slice(0,2)) * 60)  + Number(op_end.slice(3,5)) // 오프닝 끝
+function changeSeconds (item) {
+  return (Number(item.slice(0,2)) * 60)  + Number(item.slice(3,5))
+}
 
-    let posSeconds = (Number(pos.slice(0,2)) * 60)  + Number(pos.slice(3,5))
+function solution(video_len, pos, op_start, op_end, commands) {
+    const video_lenSeconds = changeSeconds(video_len) // 영상 시간
+    const op_startSeconds = changeSeconds(op_start) // 오프닝 시작
+    const op_endSeconds = changeSeconds(op_end) // 오프닝 끝
+
+    let posSeconds = changeSeconds(pos) // 현재 위치
 
     if (op_startSeconds <= posSeconds && posSeconds <= op_endSeconds) posSeconds = op_endSeconds
     
@@ -27,7 +31,7 @@ function solution(video_len, pos, op_start, op_end, commands) {
             
             default : break;
         }
-        //         if (com === "next") {
+//         if (com === "next") {
 //              if (video_lenSeconds - posSeconds < 10) { // 남은 영상의 길이가 10초 미만일때
 //                     posSeconds = video_lenSeconds
 //                 }

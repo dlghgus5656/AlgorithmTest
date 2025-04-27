@@ -8,10 +8,13 @@ function solution(bandage, health, attacks) {
     const addHealth = bandage[2] // 추가 회복량
     const endAttack = attacks[attacks.length - 1][0] // 마지막 공격 값
     
+    let attidx = 0 // 공격 배열 인덱스
+    
     // endAttack만큼 반복
     for (let i = 0; i <= endAttack; i++) {
-       const damage = attacks.find((arr) => arr[0] === i)?.[1] ?? 0; // 현재 인덱스가 공격 시간이면 damage를 아니라면 0을 저장
- 
+       // const damage = attacks.find((arr) => arr[0] === i)?.[1] ?? 0; // 현재 인덱스가 공격 시간이면 damage를 아니라면 0을 저장
+       const damage =  attacks[attidx] && attacks[attidx][0] === i ? attacks[attidx][1] : 0 // 현재 인덱스가 공격 시간이면 damage를 아니라면 0을 저장
+
             if (damage === 0) { // 공격 아닐때
                 if (curHealth + recovery > health) { // 최대 체력 초과시
                     curHealth = health
@@ -26,6 +29,7 @@ function solution(bandage, health, attacks) {
 
                 curHealth -= damage
                 sequenceCount = 0 // 연속 성공 초기화
+                attidx++ // 다음 공격 준비
             }
         // 추가 체력 회복
         if (sequenceCount === time) {

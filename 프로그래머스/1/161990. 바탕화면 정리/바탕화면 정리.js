@@ -1,27 +1,23 @@
 function solution(wallpaper) {
-    const height = wallpaper.length;      // 바탕화면 세로 길이 (행 개수)
-    const width = wallpaper[0].length;    // 바탕화면 가로 길이 (열 개수)
-    
-    let arrNums = [] // 파일 위치 배열
+  const height = wallpaper.length; // 행 개수
+  const width = wallpaper[0].length; // 열 개수
+  
+// Infinity = 모든 값보다 큼, 반드시 갱신됨 / 초기값을 0으로 해두면 0보다 큰 값일땐 갱신이 안됨 = 올바른 작동 x
+  let minRow = Infinity, minCol = Infinity; // 시작 지점
+// -Infinity 또는 -1	모든 값보다 작음, 반드시 갱신됨
+  let maxRow = -1, maxCol = -1; // 마지막 지점
 
-    const result = [] // 결과 저장
 
-    // 파일들 위치 찾기
-    for (let row = 0; row < height; row++) { // 행 반복
-      const line = wallpaper[row];
-      for (let col = 0; col < line.length; col++) { // 파일의 열 위치 찾기
-        if (line[col] === '#') { // 찾았다면 행과 열 push
-          arrNums.push([row, col]);
-        }
+  for (let row = 0; row < height; row++) { // 행 반복
+    for (let col = 0; col < width; col++) { // 열 반복
+      if (wallpaper[row][col] === '#') {
+        minRow = Math.min(minRow, row); // 가장 작은 행
+        minCol = Math.min(minCol, col); // 가장 작은 열
+        maxRow = Math.max(maxRow, row); // 가장 큰 행
+        maxCol = Math.max(maxCol, col); // 가장 큰 열
       }
     }
-    // 드래그 지점을 생각하며 필요한 값 구하기
-    const Srow = arrNums.reduce((minRow, cur) => cur[0] < minRow[0] ? cur : minRow)[0]; // 가장 작은 행
-    const Scol = arrNums.reduce((minCol, cur) => cur[1] < minCol[1] ? cur : minCol)[1]; // 가장 작은 열
-    const Erow = arrNums.reduce((maxRow, cur) => cur[0] > maxRow[0] ? cur : maxRow)[0]; // 가장 큰 행
-    const Ecol = arrNums.reduce((maxCol, cur) => cur[1] > maxCol[1] ? cur : maxCol)[1]; // 가장 큰 열
-    
-    result.push(Srow, Scol, Erow + 1, Ecol + 1) // 드래그 끝 지점은 + 1씩
+  }
 
-    return result;
+  return [minRow, minCol, maxRow + 1, maxCol + 1]; // 드래그 마지막 지점은 + 1
 }

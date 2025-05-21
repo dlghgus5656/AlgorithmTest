@@ -7,7 +7,7 @@ function solution(k, m, score) {
         const scoreSlice = scoreSort.slice(i, i + m)
         
         if (scoreSlice.length === m) {
-            sum += Math.min(...scoreSlice) * m
+            sum += scoreSlice[m - 1] * m
         }
     }
     

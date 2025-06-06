@@ -5,6 +5,8 @@ function solution(numbers) {
 
   // 순열을 생성하는 재귀 함수
   const permute = (prefix, rest) => {
+    // prefix: 지금까지 만든 숫자 문자열
+    // rest: 남은 숫자 배열
     if (prefix) nums.add(Number(prefix)); // 접두사가 있으면 숫자로 변환하여 Set에 추가
     for (let i = 0; i < rest.length; i++) {
       // 현재 숫자를 prefix에 추가하고 나머지로 재귀 호출

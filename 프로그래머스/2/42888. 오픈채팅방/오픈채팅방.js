@@ -1,24 +1,23 @@
 function solution(record) {
-    const newRecord = record.map(str => str.split(" "));
+    const inText = "님이 들어왔습니다.";
+    const outText = "님이 나갔습니다.";
     
-    const inText = "님이 들어왔습니다."
-    const outText = "님이 나갔습니다."
-    
-    const idMap = new Map()
-    
-    let result = []
-    
-    for (const [state, id, name] of newRecord) {
-        if (state !== "Leave") idMap.set(id, name)
+    const idMap = new Map(); // 최신 이름 저장
+    const result = [];
+
+    for (const line of record) {
+        const [state, id, name] = line.split(" ");
         
-        if (state === "Enter") {
-            result.push([id, inText])
+        if (state !== "Leave") {
+            idMap.set(id, name); // 이름은 항상 최신값
         }
-        else if (state === "Leave"){
-            result.push([id, outText])
-          
+
+        if (state === "Enter") { // 입장
+            result.push([id, inText]);
+        } else if (state === "Leave") { // 퇴장
+            result.push([id, outText]);
         }
     }
 
-    return result.map((item) => idMap.get(item[0]) + item[1]);
+    return result.map(([id, text]) => idMap.get(id) + text); // id마다 최신 이름으로 변경
 }
